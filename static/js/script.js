@@ -1,5 +1,8 @@
 const inputs = document.querySelector("#file-uploader");
 const preview = document.querySelector(".preview");
+const select_btn = document.querySelectorAll(".fruit");
+const img_container = document.querySelector(".img-container");
+let response_data = {};
 
 inputs.style.opacity = 0;
 
@@ -25,31 +28,29 @@ inputs.addEventListener("change", (event) => {
     .then((response) => response.json())
     .then((data) => {
       console.log("Success: ", data);
+      response_data = data;
+      const chart_data = Object.keys(data).map((key) => data[key].length);
+      myChart.data.datasets[0].data = chart_data;
+      myChart.update();
     })
     .catch((error) => {
       console.error("Error:", error);
     });
-
-  // $.ajax({
-  //   url: "/image",
-  //   contentType: "application/json;charset=utf-8",
-  //   dataType: "json",
-  //   type: "POST",
-  //   data: JSON.stringify(data),
-  //   success: function (response) {
-  //     data = [];
-  //     for (var i = 0; i < 6; i++) {
-  //       if (i.toString() in response) data.push(response[i.toString()]);
-  //       else data.push(0);
-  //     }
-  //     console.log(data);
-
-  //     myChart.data.datasets[0].data = data;
-  //     myChart.update();
-  //   },
-  //   error: function (error) {
-  //     $("#wait-load").modal("hide");
-  //     console.log(error);
-  //   },
-  // });
 });
+
+for (let btn of select_btn) {
+  btn.addEventListener("click", function (e) {
+    if (e.target != document.querySelector(".selected")) {
+      img_container.innerHTML = "";
+      document.querySelector(".selected").classList.remove("selected");
+      btn.classList.add("selected");
+
+      const id = document.querySelector(".selected").id;
+      response_data[id].forEach((img_path) => {
+        html = `<div class="img"><img src="../${img_path}" alt=""></div>`;
+        console.log(html);
+        img_container.insertAdjacentHTML("afterbegin", html);
+      });
+    }
+  });
+}
