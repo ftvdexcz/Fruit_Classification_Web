@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script defer src="../static/js/script.js"></script>
+    <script src="https://kit.fontawesome.com/2a5784fd48.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    </script>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Welcome to Fruit Classification 🍇🍉</h1>
+    </div>
+    <div class="content">
+        <form action="" method="POST">
+            <label for="file-uploader"> <i class="fa-solid fa-upload"></i> Choose images to upload ... </label><br>
+            <input id="file-uploader" multiple type="file" required accept=".png, .jpg, .jpeg">
+            <div class="preview">
+                <p>No files currently selected for upload</p>
+            </div>
+        </form>
+        <div class="wrap">
+            <div class="chart">
+                <canvas id="myChart" max-width="600px" max-height="250px"
+                    style="display: block; box-sizing: border-box; height: 350px !important; width: 1196px;"></canvas>
+
+                <script>
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    const xlabels = ["Fruit 1", "Fruit 2", "Fruit 3",
+                        "Fruit 4", "Fruit 5", "Fruit 6"];
+                    const myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: xlabels,
+                            datasets: [{
+                                label: ['Số lượng'],
+                                data: {{ data }},
+                        backgroundColor: [
+                            '#855CF8',
+                            '#9C7AFF',
+                            '#AE92FF',
+                            '#BBA2FF',
+                            '#C6B3FF',
+                            '#D9CBFF'
+
+                        ],
+                        borderColor: [
+                            '#855CF8',
+                            '#9C7AFF',
+                            '#AE92FF',
+                            '#BBA2FF',
+                            '#C6B3FF',
+                            '#D9CBFF'
+
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 10,
+                        borderSkipped: false
+                    }]
+                        },
+                    options: {
+                        responsive: true,
+                            scales: {
+
+                            y: {
+                                ticks: {
+                                    stepSize: 1,
+                                        beginAtZero: true,
+                                    },
+
+                                grid: {
+                                    display: false
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false,
+                                    }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+
+                                    align: 'start',
+                                },
+                            legend: {
+                                position: 'right',
+                                    display: false
+                            }
+                        }
+                    }
+                    });
+                </script>
+                <p class="chart-title">Chart shows the number of each type of
+                    fruit</p>
+            </div>
+            <div class="about">
+
+            </div>
+        </div>
+
+    </div>
+    <div class="nav">
+        <div class="fruit selected" id="f1">Fruit 1</div>
+        <div class="fruit" id="f2">Fruit 2</div>
+        <div class="fruit" id="f3">Fruit 3</div>
+        <div class="fruit" id="f4">Fruit 4</div>
+        <div class="fruit" id="f5">Fruit 5</div>
+        <div class="fruit" id="f6">Fruit 6</div>
+    </div>
+    <div class="img-container">
+        <!-- <div class="img"><img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbUHngn6jJKnqFMhSEFvbB3UK2qXpM4mfnqA&usqp=CAU"
+                alt=""></div> -->
+    </div>
+</body>
+
+</html>
