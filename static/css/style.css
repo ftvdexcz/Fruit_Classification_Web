@@ -11,6 +11,10 @@
   font-family: sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .header {
   background-color: #f7f7f7;
   height: var(--header-height);
@@ -102,6 +106,8 @@ label {
   flex: 1 0;
   text-align: center;
   cursor: pointer;
+  text-decoration: none;
+  color: #424242;
 }
 
 .fruit:hover {
@@ -117,15 +123,15 @@ label {
 
 .img-container {
   display: flex;
-  width: 94%;
-  margin: 0 auto;
+  width: 100%;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
+  gap: calc(10% / 5);
 }
 
 .img {
-  flex-basis: 300px;
-  padding: 10px;
+  flex-basis: 15%;
+  margin-bottom: 30px;
 }
 
 .img img {
